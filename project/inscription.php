@@ -1,12 +1,18 @@
 <?php
-    $mysqli = require __DIR__ . "/database.php";
+    // $mysqli = require __DIR__ . "/database.php";
+
+    // $cui = $_POST["cui"];
+
+    // $sql = sprintf("SELECT * FROM user WHERE cui = '%s'"
+    // , $mysqli->real_escape_string($cui));
+
+    // $result = $mysqli->query($sql);
+
+    require __DIR__ . "/CRUD.php";
 
     $cui = $_POST["cui"];
 
-    $sql = sprintf("SELECT * FROM user WHERE cui = '%s'"
-    , $mysqli->real_escape_string($cui));
-
-    $result = $mysqli->query($sql);
+    $result = select_info("user","cui",$cui);
 
     $user_exists = false;
 
@@ -34,7 +40,7 @@
         </div>
 
         <div>
-            <label for="primer_nombre">Primer Nombre</label>
+            <label for="primer_nombre">Primer Nombre:</label>
             <?php if ($user_exists): ?>
                 <input type="text" id="primer_nombre" name="cui" value="<?= htmlspecialchars($user_data[1] ?? "") ?>" >
             <?php else :  ?>
@@ -43,7 +49,7 @@
         </div>
 
         <div>
-            <label for="segundo_nombre">Segundo Nombre</label>
+            <label for="segundo_nombre">Segundo Nombre:</label>
             <?php if ($user_exists): ?>
                 <input type="text" id="segundo_nombre" name="segundo_nombre" value="<?= htmlspecialchars($user_data[2] ?? "") ?>" >
             <?php else :  ?>
@@ -52,7 +58,7 @@
         </div>
 
         <div>
-            <label for="primer_apellido">Primer Apellido</label>
+            <label for="primer_apellido">Primer Apellido:</label>
             <?php if ($user_exists): ?>
                 <input type="text" id="primer_apellido" name="primer_apellido" value="<?= htmlspecialchars($user_data[3] ?? "") ?>" >
             <?php else :  ?>
@@ -61,7 +67,7 @@
         </div>
 
         <div>
-            <label for="segundo_apellido">Segundo Apellido</label>
+            <label for="segundo_apellido">Segundo Apellido:</label>
             <?php if ($user_exists): ?>
                 <input type="text" id="segundo_apellido" name="segundo_apellido" value="<?= htmlspecialchars($user_data[4] ?? "") ?>" >
             <?php else :  ?>
@@ -70,13 +76,41 @@
         </div>
 
         <div>
-            <label for="email">Correo Electronico</label>
+            <label for="email">Correo Electronico:</label>
             <?php if ($user_exists): ?>
                 <input type="text" id="email" name="email" value="<?= htmlspecialchars($user_data[5] ?? "") ?>" >
             <?php else :  ?>
                 <input type="text" id="email" name="email" placeholder="Ingrese su Correo Electronico">
             <?php endif; ?>    
         </div>
+
+        <div>
+            <label for="celular">Celular:</label>
+            <?php if ($user_exists): ?>
+                <input type="text" id="celular" name="celular" value="<?= htmlspecialchars($user_data[6] ?? "") ?>" >
+            <?php else :  ?>
+                <input type="text" id="celular" name="celular" placeholder="Ingrese su Celular">
+            <?php endif; ?>    
+        </div>
+
+        <div>
+            <label for="gender">Genero:</label>
+            <input type="radio" id="gender1" name="gender" value="Male" > Male
+            <input type="radio" id="gender2" name="gender" value="Male" > Female
+   
+        </div>
+
+        <div>
+            <?php $identidad = select_all_info("identidad_cultural") ?>
+            <label for="identidad">Identidad:</label>
+            <select name="identidad" id="identidad">
+                <?php  foreach ($identidad as $value){ ?>
+                    <option value="<?php echo $value["id"]; ?> "> <?php echo $value["nombre"]; ?>  </option>
+                <?php } ?>
+            </select>
+        </div>
+
+
         
 
 
